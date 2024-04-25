@@ -2,7 +2,7 @@ import { Select } from "antd";
 import React, { useCallback, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { SkillItem } from "./skill-items";
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
 import {
   SortableContext,
   verticalListSortingStrategy,
@@ -24,14 +24,15 @@ const skillList = [
 
 export const SortableList = () => {
   const [selectedSkills, setSkills] = useState<Array<string>>([]);
-  const deleteSkillHandler = useCallback(
-    (skillIndex: number) => {
-      setSkills((prevSkills) =>
-        prevSkills.filter((skill) => skill !== selectedSkills[skillIndex])
-      );
-    },
-    [selectedSkills]
+  const deleteSkillHandler = (skillIndex: number) => {
+    setSkills((prevSkills) =>
+      prevSkills.filter((skill) => skill !== selectedSkills[skillIndex])
+    );
+  };
+  const sensors = useSensors(
+    useSensor(MouseSensor, { activationConstraint: { distance: 24 } })
   );
+
   return (
     <div className="mt-4">
       <h1 className=" text-white text-[4.5rem] text-center font-semibold mb-8">
@@ -60,6 +61,7 @@ export const SortableList = () => {
                 );
               }
             }}
+            sensors={sensors}
           >
             <SortableContext
               items={selectedSkills}
@@ -117,7 +119,8 @@ export const SortableList = () => {
                     onClick={() => {
                       setSkills((prev) => [...prev, skill.label]);
                     }}
-                    className="text-blue-700 hover:text-blue-300"
+                    disabled={selectedSkills.includes(skill.label)}
+                    className="text-blue-700 hover:text-blue-300 disabled:text-blue-950"
                     key={skill.key}
                   >
                     + {skill.label}
