@@ -34,7 +34,7 @@ export const SortableList = () => {
   );
 
   return (
-    <div className="mt-4">
+    <>
       <h1 className=" text-white text-[4.5rem] text-center font-semibold mb-8">
         Select your top 5 tech skills
       </h1>
@@ -131,6 +131,6 @@ export const SortableList = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
