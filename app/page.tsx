@@ -1,5 +1,6 @@
 "use client";
 
+import { OTPInput } from "@/Components/OTP";
 import { Rating } from "@/Components/Rating-system";
 import { SortableList } from "@/Components/Sortable-list";
 import { useState } from "react";
@@ -7,6 +8,7 @@ import { useState } from "react";
 const components = [
   { id: 1, component: SortableList, label: "Sortable List" },
   { id: 2, component: Rating, label: "Rating" },
+  { id: 3, component: OTPInput, label: "OTP Input" },
 ];
 
 export default function Home() {
